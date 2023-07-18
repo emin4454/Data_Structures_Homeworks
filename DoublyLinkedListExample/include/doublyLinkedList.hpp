@@ -5,19 +5,29 @@ class doublyNode
 {
 public:
     doublyNode(int);
-    void addNode(int);
-    void goToNextNode();
-    void goToPreviousNode();
-    doublyNode *goToLastNode();
-    int getNodeCount();
     ~doublyNode();
+
+    void addNodeToUp(int);
+    void addNodeToDown(int);
+
+    doublyNode *goToUpNode();
+    doublyNode *goToDownNode(); // Bu iki fonksiyon kontrol amaçlı
+
+    doublyNode *goToUpLastNode();
+    doublyNode *goToDownLastNode();
+
+    void printAllUpNodes();
+    void printAllDownNodes();
+
+    int getNodeCount();
+    int getValue();
+
     static doublyNode *rootNode;
     static int nodeCount;
-    void printAllNodes();
 
 private:
-    doublyNode *nextNode;
-    doublyNode *previousNode;
+    doublyNode *upNode;
+    doublyNode *downNode;
     int value;
 };
 

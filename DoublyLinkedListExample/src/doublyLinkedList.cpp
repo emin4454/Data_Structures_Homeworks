@@ -6,26 +6,36 @@
 int doublyNode::nodeCount = 0;
 doublyNode *doublyNode::rootNode = nullptr;
 
-doublyNode ::doublyNode(int num)
+doublyNode ::doublyNode(int num = 0)
 {
-    this->nextNode = nullptr;
-    this->previousNode = nullptr;
-    this->value = num;
+    this->upNode = nullptr;
+    this->downNode = nullptr;
+    this->value = -9999; // Hiç bir veri atanılmadığı anlamına gelir
     if (nodeCount == 0)
     {
         rootNode = this;
         nodeCount++;
-        std::cout << "prev: " << rootNode->previousNode << "  current: " << rootNode << "  next: " << rootNode->nextNode << " value: " << rootNode->value << std::endl;
+        // std::cout << "prev: " << rootNode->downNode << "  current: " << rootNode << "  next: " << rootNode->upNode << " value: " << rootNode->value << std::endl;
     }
+    else
+        this->value = num;
 }
-void doublyNode::addNode(int num)
+void doublyNode::addNodeToUp(int num)
 {
     nodeCount++;
-    doublyNode *lastNode = goToLastNode();
-    lastNode->nextNode = new doublyNode(num);
-    lastNode->nextNode->previousNode = lastNode;
-    lastNode = lastNode->nextNode;
-    std::cout << "prev: " << lastNode->previousNode << "  current: " << lastNode << "  next: " << lastNode->nextNode << " value: " << lastNode->value << std::endl;
+    doublyNode *lastNode = goToUpLastNode();
+    lastNode->upNode = new doublyNode(num);
+    lastNode = lastNode->upNode;
+    // std::cout << "prev: " << lastNode->downNode << "  current: " << lastNode << "  next: " << lastNode->upNode << " value: " << lastNode->value << std::endl;
+}
+
+void doublyNode::addNodeToDown(int num)
+{
+    nodeCount++;
+    doublyNode *lastNode = goToDownLastNode();
+    lastNode->downNode = new doublyNode(num);
+    lastNode = lastNode->upNode;
+    // std::cout << "prev: " << lastNode->downNode << "  current: " << lastNode << "  next: " << lastNode->upNode << " value: " << lastNode->value << std::endl;
 }
 
 int doublyNode::getNodeCount()
@@ -33,23 +43,61 @@ int doublyNode::getNodeCount()
     return nodeCount;
 }
 
-doublyNode *doublyNode::goToLastNode()
+doublyNode *doublyNode::goToUpLastNode()
 {
     doublyNode *currentNode = rootNode;
-    while (currentNode->nextNode != nullptr)
+    while (currentNode->upNode != nullptr)
     {
-        currentNode = currentNode->nextNode;
+        currentNode = currentNode->upNode;
     }
     return currentNode;
 }
 
-void doublyNode::printAllNodes()
+doublyNode *doublyNode::goToDownLastNode()
 {
     doublyNode *currentNode = rootNode;
+    while (currentNode->downNode != nullptr)
+    {
+        currentNode = currentNode->downNode;
+    }
+    return currentNode;
+}
+
+void doublyNode::printAllUpNodes()
+{
+
+    doublyNode *currentNode = rootNode;
+    std::cout << "RootNode = " << currentNode << std::endl;
     while (currentNode != nullptr)
     {
-        std::cout << "prev: " << currentNode->previousNode << "  current: " << currentNode << "  next: " << currentNode->nextNode << " value: " << currentNode->value << std::endl;
-        currentNode = currentNode->nextNode;
+        std::cout << "DownNode: " << currentNode->downNode << "  currentNode: " << currentNode << "  UpNode: " << currentNode->upNode << " value: " << currentNode->value << std::endl;
+        currentNode = currentNode->upNode;
     }
+}
+
+void doublyNode::printAllDownNodes()
+{
+    doublyNode *currentNode = rootNode;
+    std::cout << "RootNode = " << currentNode << std::endl;
+    while (currentNode != nullptr)
+    {
+        std::cout << "DownNode: " << currentNode->downNode << "  currentNode: " << currentNode << "  UpNode: " << currentNode->upNode << " value: " << currentNode->value << std::endl;
+        currentNode = currentNode->downNode;
+    }
+}
+
+doublyNode *doublyNode::goToUpNode()
+{
+    return this->upNode;
+}
+
+doublyNode *doublyNode::goToDownNode()
+{
+    return this->downNode;
+}
+
+int doublyNode::getValue()
+{
+    return this->value;
 }
 #endif
