@@ -2,6 +2,7 @@
 #define ARRAYLIST_CPP
 #include "arraylist.hpp"
 #include "linkedlist.hpp"
+#include <iostream>
 
 ArrayList::ArrayList()
 {
@@ -27,7 +28,6 @@ void ArrayList::increaseCapacity(int newCapacity)
     {
         tmp[i] = list[i];
     }
-    delete[] list;
     list = tmp;
     capacity = newCapacity;
 }
@@ -67,7 +67,7 @@ float ArrayList::calculateSumOfAverages()
             int value = this->getByIndex(j)->getValueByIndex(i);
             if (value != -557)
             {
-                sumOfLine += value;
+                sumOfLine += value; // bagli listenin sonuncu elemaninda degilsek bolunecek sayiya 1 ekliyoruz
                 divideCounter++;
             }
         }
@@ -81,5 +81,10 @@ float ArrayList::calculateSumOfAverages()
         sumOfAverages += average;
         i++;
     }
+}
+
+ArrayList::~ArrayList()
+{
+    delete[] list;
 }
 #endif

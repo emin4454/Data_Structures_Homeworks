@@ -28,6 +28,10 @@ int LinkedList::getNodeCount()
 {
     return nodeCount;
 }
+void LinkedList::setNodeCount(int nodeCount)
+{
+    this->nodeCount = nodeCount;
+}
 
 void LinkedList::printAllNodes()
 {
@@ -89,5 +93,13 @@ int LinkedList::getValueByIndex(int index)
             currentNode = currentNode->nextNode;
         }
         return currentNode->value;
+    }
+}
+
+LinkedList::~LinkedList()
+{
+    while (rootNode != nullptr)
+    {
+        delete this->goToLastNode();
     }
 }

@@ -8,6 +8,7 @@ public:
     void startProcess();
     void swapLists();
     void printEverything();
+    ~TextToList();
 
 private:
     int num;

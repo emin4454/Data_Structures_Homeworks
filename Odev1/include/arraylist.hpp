@@ -12,6 +12,7 @@ private:
 
 public:
     ArrayList();
+    ~ArrayList();
     void add(LinkedList *);
     int getLenght();
     int getCapacity();

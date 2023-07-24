@@ -4,8 +4,8 @@
 
 Node::Node(int value = 0)
 {
-    this->value = value;
-    this->nextNode = nullptr;
+    this->value = value;      // Dugumun  elemani
+    this->nextNode = nullptr; // baglanacagi sonraki dugum
 }
 
 #endif
